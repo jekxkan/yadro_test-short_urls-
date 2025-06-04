@@ -93,7 +93,7 @@ class UrlsService:
     def _generate_short_url(self, origin_url: str) -> str:
         """
         Генерирует короткую ссылку, объединяя префикс и ключ
-        Также проходит проверка является ли ссылка длиной(более 3 сегментов ссылки,
+        Также проходит проверка является ли ссылка длиной(более 2 сегментов ссылки,
         если нет то не нужно фомировать короткую ссылку, так как она таковой уже
         является)
 
@@ -104,11 +104,11 @@ class UrlsService:
             str: короткий url
         """
         prefix = self._generate_prefix(origin_url)
-        if prefix[0] <= 4:
+        if prefix[0] <= 3:
             raise HTTPException(status_code=400, detail="To generate short url "
-                                                        "must have at least 4 "
+                                                        "must have at least 3 "
                                                         "path segments, like "
-                                                        "'one://two/three/four'")
+                                                        "'one://two/three'")
         key = self._generate_key()
         return '/'.join(prefix[1]) + '/' + key
 
