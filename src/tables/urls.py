@@ -63,7 +63,7 @@ class UrlsService:
         return
 
 
-    def _generate_prefix(self, origin_url: str) -> tuple[int, List[str]]:
+    def _generate_prefix(self, origin_url: str) -> tuple[int, str]:
         """
        Генерирует префикс из первых трех частей ссылки
 
@@ -75,8 +75,9 @@ class UrlsService:
            кол-во сегментов ссылки, а второе - список первых трех частей ссылки
            (например, ['http', '', 'localhost:8000'])
        """
-        prefix = origin_url.split('/')
-        return (len(prefix), prefix[:3])
+        old_prefix = origin_url.split('/')
+        prefix = 'http://localhost:8000'
+        return (len(old_prefix), prefix)
 
 
     def _generate_key(self) -> str:
@@ -110,7 +111,7 @@ class UrlsService:
                                                         "path segments, like "
                                                         "'one://two/three'")
         key = self._generate_key()
-        return '/'.join(prefix[1]) + '/' + key
+        return prefix[1] + '/' + key
 
 
     async def add_url_click(self, short_url_key: str) -> UrlClicks:
