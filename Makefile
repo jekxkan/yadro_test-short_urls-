@@ -1,7 +1,6 @@
 Для запуска контейнера с бд в командной строке: docker compose up -d
 
-Для установки зависимостей в командной строке: pip install poetry
-                                               poetry install
+Для установки зависимостей в командной строке: pip install -r requirements.txt
 
 Для применения миграций к бд в командной строке: alembic upgrade head
 

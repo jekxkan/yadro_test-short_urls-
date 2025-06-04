@@ -1,0 +1,12 @@
+fastapi
+asyncpg
+alembic
+dotenv
+pydantic-settings
+passlib
+sqlalchemy
+apscheduler
+uvicorn
+python-multipart
+bcrypt
+pytz
