@@ -147,7 +147,8 @@ class UrlsService:
     async def create_new_url(self, origin_url: str, user_id: int) -> Urls:
         """
         Создает новую запись короткой ссылки в бд.
-        Проверяет соотвествует ли она шаблону ссылки, т.е она вида http(https)://hi12
+        Проверяет соотвествует ли она шаблону ссылки, т.е она вида http(https)://hi12 или
+        http://localhost:8000 и т.д
         Если с первой попытки не удалось сформировать уникальную короткую ссылку,
         то будет произведено 10 попыток сформировать ее
 
@@ -158,7 +159,18 @@ class UrlsService:
         Returns:
             Urls: объект таблицы Urls
         """
-        regex = re.compile(r"^https?://([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(/.*)?$")
+        regex = re.compile(
+            r"^https?://"                                    
+            r"("                                            
+                r"localhost"                                 
+                r"|"                                         
+                r"(\d{1,3}\.){3}\d{1,3}"                     
+                r"|"                                         
+                r"([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}"           
+            r")"
+            r"(:\d+)?"                                      
+            r"(/.*)?$"
+        )
         if regex.match(origin_url):
             for attempt in range(10):
                 try:
